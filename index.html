@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+</head>
+
+<body>
+    <div id="app">
+        <ul>
+            <li v-for="item in arr" :key="item.Province_ID">
+                {{item.Province_Name}}
+            </li>
+        </ul>
+    </div>
+
+
+
+    <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.9/vue.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/axios/0.21.1/axios.js"></script>
+
+    <script>
+        new Vue({
+            el: "#app",
+            data: {
+                domin: 'http://www.visasiv.cn',
+                arr: []
+            },
+            mounted() {
+                this.getProviceList()
+            },
+            methods: {
+                async getProviceList() {
+                   let res = await axios.post(this.domin + '/Ajax/Word/getprovincelist')
+                   this.arr = res.data.list
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>
